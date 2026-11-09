@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이예은 연구 포트폴리오</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f6f9;
+    --card: #ffffff;
+    --ink: #1a2238;
+    --muted: #5d6680;
+    --line: #e2e6ef;
+    --navy: #1f2f5c;
+    --accent: #1f2f5c;
+    --accent-soft: #f1f3f7;
+    --goal: #1f2f5c;
+    --method: #1f2f5c;
+    --result: #1f2f5c;
+    --result-soft: #f1f3f7;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans KR", -apple-system, "Apple SD Gothic Neo", sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    word-break: keep-all;
+  }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+  /* Header */
+  header.hero {
+    background: var(--navy);
+    color: #fff;
+    padding: 56px 0 48px;
+  }
+  .hero .eyebrow { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; opacity: .7; font-weight: 500; }
+  .hero h1 { margin: 6px 0 6px; font-size: 38px; font-weight: 800; letter-spacing: -.01em; }
+  .hero .sub { font-size: 16px; opacity: .85; margin: 0; }
+  .hero .meta { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 14px; opacity: .85; }
+  .hero .meta a { color: #fff; }
+  .hero .keywords { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .hero .keywords span {
+    font-size: 13px; padding: 4px 12px; border-radius: 999px;
+    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+  }
+
+  /* Skills */
+  section.skills { margin: 40px 0 0; }
+  section.skills h2 { font-size: 20px; margin: 0 0 14px; }
+  .skill-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .skill { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; }
+  .skill h3 { margin: 0 0 8px; font-size: 16px; color: var(--navy); }
+  .skill ul { margin: 0; padding-left: 18px; font-size: 14.5px; }
+  .skill li { margin: 3px 0; }
+  .skill li::marker { color: #adb5bd; }
+  @media (max-width: 900px) { .skill-grid { grid-template-columns: 1fr; } }
+
+  /* Project */
+  section.project {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    margin: 40px 0;
+    padding: 40px;
+    box-shadow: 0 1px 2px rgba(20,30,60,.04), 0 8px 24px rgba(20,30,60,.05);
+  }
+  .proj-head { margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .tag {
+    font-size: 12.5px; font-weight: 700; padding: 3px 10px; border-radius: 6px;
+    background: var(--accent-soft); color: var(--accent);
+  }
+  .tag.role { background: var(--navy); color: #fff; }
+  .tag.award { background: #fff; color: var(--navy); box-shadow: inset 0 0 0 1px var(--navy); }
+  .tag.plain { background: #f1f3f5; color: var(--muted); font-weight: 500; }
+  .proj-head h2 { font-size: 25px; line-height: 1.4; margin: 0; font-weight: 800; }
+  .proj-head .en { margin: 4px 0 0; color: var(--muted); font-size: 15px; }
+  .proj-head .authors { margin: 8px 0 0; color: var(--muted); font-size: 13.5px; }
+  .proj-head .authors b { color: var(--ink); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+    gap: 40px;
+    align-items: start;
+  }
+
+  /* Takeaway */
+  .takeaway {
+    background: var(--navy); color: #fff; border-radius: 12px;
+    padding: 18px 22px; margin-bottom: 22px; font-size: 16.5px; font-weight: 500; line-height: 1.55;
+  }
+  .takeaway small { display: block; font-size: 12px; letter-spacing: .1em; opacity: .65; font-weight: 700; margin-bottom: 4px; }
+  .takeaway b { color: #fff; text-decoration: underline; text-decoration-color: rgba(255,255,255,.45); text-underline-offset: 4px; }
+
+  /* Flow */
+  .flow { display: flex; flex-direction: column; }
+  .step { position: relative; padding: 0 0 0 52px; }
+  .step + .step { margin-top: 26px; }
+  .step::before {
+    content: ""; position: absolute; left: 17px; top: 38px; bottom: -26px; width: 2px;
+    background: var(--line);
+  }
+  .step:last-child::before { display: none; }
+  .step .num {
+    position: absolute; left: 0; top: 0; width: 36px; height: 36px; border-radius: 50%;
+    display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 15px;
+  }
+  .step.goal .num { background: var(--goal); }
+  .step.method .num { background: var(--method); }
+  .step.result .num { background: var(--result); }
+  .step h3 { margin: 4px 0 8px; font-size: 18px; font-weight: 800; display: flex; align-items: baseline; gap: 8px; }
+  .step h3 .en { font-size: 12px; font-weight: 700; letter-spacing: .1em; color: var(--muted); }
+  .step.goal h3 { color: var(--goal); }
+  .step.method h3 { color: var(--method); }
+  .step.result h3 { color: var(--result); }
+  .step p { margin: 0 0 8px; font-size: 15px; }
+  .step ul { margin: 0; padding-left: 18px; font-size: 15px; }
+  .step li { margin: 3px 0; }
+  .step li::marker { color: #adb5bd; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .chip { font-size: 12.5px; padding: 3px 9px; border-radius: 6px; background: #f1f3f5; color: #495057; font-weight: 500; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin: 4px 0 12px; }
+  .stat {
+    background: var(--result-soft); border-radius: 10px; padding: 12px 12px 10px;
+  }
+  .stat .v { font-size: 24px; font-weight: 800; color: var(--result); line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .stat .l { font-size: 12.5px; color: var(--ink); margin-top: 4px; line-height: 1.4; }
+  .stat .s { font-size: 11.5px; color: var(--muted); display: block; margin-top: 2px; }
+
+  .contrib {
+    margin-top: 24px; padding: 14px 18px; border-left: 3px solid var(--accent);
+    background: var(--accent-soft); border-radius: 0 10px 10px 0; font-size: 14.5px;
+  }
+  .contrib b { color: var(--accent); }
+
+  /* Poster */
+  figure.poster { margin: 0; position: sticky; top: 24px; }
+  .poster button {
+    display: block; width: 100%; padding: 0; border: 1px solid var(--line); border-radius: 10px;
+    background: #fff; cursor: zoom-in; overflow: hidden;
+    box-shadow: 0 10px 30px rgba(20,30,60,.14);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .poster button:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(20,30,60,.2); }
+  .poster img { display: block; width: 100%; height: auto; }
+  .poster figcaption { margin-top: 10px; font-size: 13px; color: var(--muted); text-align: center; }
+
+  /* Other */
+  section.other { margin: 40px 0 64px; }
+  section.other h2 { font-size: 20px; margin: 0 0 14px; }
+  .other-item {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px 24px;
+  }
+  .other-item h3 { font-size: 16.5px; margin: 6px 0 4px; }
+  .other-item p { margin: 0; font-size: 14.5px; color: var(--muted); }
+  .other-item p b { color: var(--ink); }
+  .exp-list { display: grid; gap: 16px; }
+  .other-item ul { margin: 10px 0 0; padding-left: 18px; font-size: 14.5px; }
+  .other-item li { margin: 3px 0; }
+  .other-item li::marker { color: #adb5bd; }
+  section.other + section.other { margin-top: -24px; }
+
+  footer { text-align: center; font-size: 13px; color: var(--muted); padding: 0 0 40px; }
+
+  .print-link, .appendix { display: none; }
+
+  /* Lightbox */
+  .lb {
+    position: fixed; inset: 0; background: rgba(10,14,28,.88); display: none;
+    align-items: flex-start; justify-content: center; overflow: auto; z-index: 50; padding: 40px 16px;
+  }
+  .lb.open { display: flex; }
+  .lb img { max-width: min(1100px, 100%); height: auto; border-radius: 6px; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+  .lb .close {
+    position: fixed; top: 14px; right: 18px; width: 40px; height: 40px; border-radius: 50%;
+    border: 0; background: rgba(255,255,255,.15); color: #fff; font-size: 22px; cursor: pointer;
+  }
+
+  @media (max-width: 900px) {
+    .wrap { padding: 0 16px; }
+    .grid { grid-template-columns: 1fr; gap: 28px; }
+    figure.poster { position: static; max-width: 520px; margin: 0 auto; }
+    section.project { padding: 24px 18px; }
+    .hero h1 { font-size: 30px; }
+    .proj-head h2 { font-size: 21px; }
+  }
+  @media (max-width: 480px) {
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stat .v { font-size: 21px; }
+  }
+  @page { size: A4; margin: 12mm; }
+  @media print {
+    html { -webkit-print-color-adjust: exact; print-color-adjust: exact; zoom: .8; }
+    body { background: #fff; }
+    .wrap { max-width: none; padding: 0; }
+    header.hero { padding: 28px 32px; border-radius: 14px; }
+    .hero h1 { font-size: 34px; }
+    section.skills { margin-top: 24px; }
+    .skill-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+    section.project { break-before: page; margin: 0; padding: 0; border: 0; box-shadow: none; }
+    .grid { grid-template-columns: minmax(0, 1fr) minmax(0, .82fr) !important; gap: 28px; }
+    figure.poster { position: static; max-width: none; }
+    .poster button { box-shadow: none; }
+    .poster figcaption { display: none; }
+    .print-link { display: block !important; margin-top: 8px; text-align: center; font-size: 13px; font-weight: 700; color: var(--navy); }
+    .appendix { display: block !important; }
+    .full-poster { break-before: page; text-align: center; }
+    .full-poster h2 { font-size: 18px; margin: 0 0 12px; text-align: left; }
+    .full-poster img { max-width: 100%; max-height: 1200px; width: auto; height: auto; }
+    section.other:has(+ section.appendix) { break-inside: avoid; }
+    section.other { break-before: page; margin: 0 0 24px; }
+    section.other + section.other { break-before: auto; margin-top: 24px; }
+    .other-item, .skill, .stat, .takeaway { break-inside: avoid; }
+    .lb, footer { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Research Portfolio</div>
+    <h1>이예은 <span style="font-weight:500;font-size:.6em;opacity:.8">Ye-eun Lee</span></h1>
+    <p class="sub">중앙대학교 심리학과 석사과정 (2027년 2월 졸업 예정)</p>
+    <div class="meta">
+      <span>지도교수: 최영은 교수</span>
+      <span>한국발달심리학회 우수포스터상 2회 (2024, 2025)</span>
+      <a href="mailto:yenlee1117@cau.ac.kr">yenlee1117@cau.ac.kr</a>
+    </div>
+    <div class="keywords">
+      <span>Eye-tracking</span><span>Gaze-contingent 패러다임</span><span>시각 주의</span><span>국제 공동연구</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="skills" aria-label="핵심 역량">
+    <h2>핵심 역량</h2>
+    <div class="skill-grid">
+      <div class="skill">
+        <h3>데이터 분석</h3>
+        <ul>
+          <li>아이트래킹 응시 데이터 분석</li>
+          <li>EEG 뇌파 데이터 분석</li>
+          <li>자기보고 설문과 행동 지표 간 상관 분석</li>
+          <li>분석 도구: R · Python · Jamovi · JASP · SPSS</li>
+          <li>측정 장비: EyeLink 1000 Plus · Emotiv EEG</li>
+        </ul>
+      </div>
+      <div class="skill">
+        <h3>국제 협업 · 영어 발표</h3>
+        <ul>
+          <li>ISSBD 국제학회 영어 포스터 발표 (제1저자)</li>
+          <li>RIKEN JEWEL 국제 공동연구 참여: 일본 · 프랑스 · 미국 연구진과 분석 프로토콜 협의</li>
+        </ul>
+      </div>
+      <div class="skill">
+        <h3>연구 기획 및 문서 작성</h3>
+        <ul>
+          <li>아이트래킹 과제 설계 및 파일럿 실험, 포터블 EEG 현장 실험 진행</li>
+          <li>Python으로 실험 과제 구현</li>
+          <li>학회 발표 초록 3편 · 포스터 2편 작성</li>
+          <li>IRB 심의 서류 작성 경험</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Project 1: ISSBD ===================== -->
+  <section class="project" id="issbd">
+    <div class="proj-head">
+      <div class="tags">
+        <span class="tag">ISSBD 국제학회 포스터</span>
+        <span class="tag role">제1저자</span>
+        <span class="tag plain">JSPS 연구비 지원 (JP20H05617)</span>
+      </div>
+      <h2>가상 캐릭터의 시선 반응성이 한국 13개월 영아의 단어학습에 미치는 영향</h2>
+      <p class="en">Effects of Virtual-agent Gaze Contingency on Word Learning in Korean 13-Month-Olds</p>
+      <p class="authors"><b>Ye-eun Lee</b>, Youtao Lu, Sho Tsuji, Reiko Mazuka, Youngon Choi · 중앙대 · 도쿄대 IRCN · ENS · RIKEN CBS · Waseda · Duke</p>
+    </div>
+
+    <div class="grid">
+      <div>
+        <div class="takeaway">
+          <small>ONE-LINE SUMMARY</small>
+          시선 추적 데이터로 단어-물체 연합을 측정한 결과, 한국 13개월 영아는 가상 캐릭터가 이름을 알려 준 새 물체를 <b>우연 수준보다 많이 응시</b>했으나(57.1%), 이는 두 조건 모두에서 나타나 <b>시선 반응성에 따른 차이</b>는 확인되지 않았다.
+        </div>
+
+        <div class="flow">
+          <div class="step goal">
+            <div class="num">1</div>
+            <h3>연구 목적 <span class="en">PURPOSE</span></h3>
+            <p>영상 매체에서는 실시간 상호작용이 없어 학습이 저하되는 <b>비디오 결손 효과</b>가 나타납니다. 시선 반응성이 이를 보완할 수 있는지, 그리고 일본(효과 있음)·프랑스(효과 없음)로 엇갈린 선행 결과 속에서 <b>한국 영아</b>는 어떤지 검증했습니다.</p>
+          </div>
+
+          <div class="step method">
+            <div class="num">2</div>
+            <h3>방법론 <span class="en">METHODS</span></h3>
+            <ul>
+              <li><b>대상</b>: 한국어 습득 13개월 영아 108명 참여 (시선 분석 N=33, 물체 선택 N=34)</li>
+              <li><b>피험자 내 설계</b>: <b>Contingent</b> (캐릭터가 영아 시선을 실시간 추적) vs. <b>Yoked</b> (이전 참가자 시선 기록 재생)</li>
+              <li><b>절차</b>: 관찰(5초) → 캐릭터 시선 전환 → 새 단어 명명 → 테스트 1 <i>Looking-While-Listening</i> → 테스트 2 물체 선택</li>
+            </ul>
+            <div class="chips">
+              <span class="chip">Gaze-contingent eye-tracking</span>
+            </div>
+          </div>
+
+          <div class="step result">
+            <div class="num">3</div>
+            <h3>핵심 결과 <span class="en">KEY FINDINGS</span></h3>
+            <div class="stats">
+              <div class="stat"><div class="v">57.1%</div><div class="l">새 단어 표적 응시<span class="s">우연수준 이상, p = .013</span></div></div>
+              <div class="stat"><div class="v">p&lt;.001</div><div class="l">명명 단계 표적 응시<span class="s">모든 단어 유형</span></div></div>
+              <div class="stat"><div class="v">n.s.</div><div class="l">조건 간 차이<span class="s">응시율 · 물체 선택</span></div></div>
+            </div>
+            <ul>
+              <li>영아는 반응성 여부와 관계없이 가상 캐릭터의 시선을 따라 명명된 물체를 응시했습니다.</li>
+              <li>테스트 단계에서 영아는 가상 캐릭터가 이름을 알려 준 물체를 우연 수준보다 유의미하게 많이 응시했습니다(57.1%, p = .013). 이 경향은 두 조건에서 모두 나타났습니다.</li>
+              <li>표적 응시율과 물체 선택 모두에서 시선 반응성(조건)에 따른 차이는 나타나지 않았습니다.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="contrib">
+          <b>기여</b> · 제1저자로 한국 영아 대상 실험 설계, 참여자 모집 및 데이터 수집, 분석을 담당했으며, 일본·프랑스 데이터와 비교 가능한 <b>국제 공동연구 패러다임</b>을 한국에 적용했습니다.
+        </div>
+      </div>
+
+      <figure class="poster">
+        <button type="button" data-full="assets/poster_issbd.jpg" aria-label="ISSBD 포스터 크게 보기">
+          <img src="assets/poster_issbd.jpg" alt="ISSBD 포스터: Effects of Virtual-agent Gaze Contingency on Word Learning in Korean 13-Month-Olds" loading="lazy">
+        </button>
+        <figcaption>클릭하면 포스터 전체를 크게 볼 수 있습니다</figcaption>
+        <a class="print-link" href="#full-issbd">포스터 원본 크게 보기 →</a>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===================== Project 2: KDPS 2024 ===================== -->
+  <section class="project" id="kdps2024">
+    <div class="proj-head">
+      <div class="tags">
+        <span class="tag">2024 한국발달심리학회 포스터</span>
+        <span class="tag role">제2저자</span>
+        <span class="tag award">우수포스터상</span>
+      </div>
+      <h2>영아의 물체 정보처리에 대한 사회적 단서의 영향: 시선, 가리키기, 발화의 역할</h2>
+      <p class="en">The Effect of Social Cues in Infants' Object Processing: The Roles of Gaze, Pointing, and Speech Cues</p>
+      <p class="authors">윤혜령, <b>이예은</b>, 최영은 · 중앙대학교 심리학과</p>
+    </div>
+
+    <div class="grid">
+      <div>
+        <div class="takeaway">
+          <small>ONE-LINE SUMMARY</small>
+          응시시간과 물체 선택 행동으로 영아의 물체 정보처리를 측정한 결과, 시선만 줄 때보다 <b>시선 + 영아지향어(IDS)</b>를 함께 줄 때 12개월 영아가 표적 물체를 더 자주 선택했다 — 응시시간보다 <b>행동 선택</b>이 더 민감한 지표였다.
+        </div>
+
+        <div class="flow">
+          <div class="step goal">
+            <div class="num">1</div>
+            <h3>연구 목적 <span class="en">PURPOSE</span></h3>
+            <p>Okumura 등(2020)의 패러다임에 선행연구가 다루지 않은 <b>가리키기 단서</b>를 추가해, 시선·가리키기·발화(IDS)의 <b>결합</b>이 12개월 영아의 물체 정보처리에 미치는 영향과 <b>기질</b>에 따른 차이를 분석했습니다.</p>
+          </div>
+
+          <div class="step method">
+            <div class="num">2</div>
+            <h3>방법론 <span class="en">METHODS</span></h3>
+            <ul>
+              <li><b>대상</b>: 12개월 영아 40명, 집단 간 설계 (시선+가리키기 n=20 / 시선+IDS n=20, 시선 조건은 모두 기준 조건으로 수행)</li>
+              <li><b>절차</b>: 친숙화(10초 × 6회) → 응시시간 비교 과제(10초 × 4회) → 실물 사진으로 물체 선택 과제</li>
+              <li><b>개인차</b>: 영아 기질 측정 (IBQ-R)</li>
+            </ul>
+            <div class="chips">
+              <span class="chip">Preferential looking</span>
+              <span class="chip">Object selection task</span>
+              <span class="chip">χ² test</span>
+              <span class="chip">IBQ-R</span>
+            </div>
+          </div>
+
+          <div class="step result">
+            <div class="num">3</div>
+            <h3>핵심 결과 <span class="en">KEY FINDINGS</span></h3>
+            <div class="stats">
+              <div class="stat"><div class="v">p = .03</div><div class="l">시선+IDS 표적 선택↑<span class="s">χ²(2) = 6.70</span></div></div>
+              <div class="stat"><div class="v">p = .07</div><div class="l">시선+가리키기 경향성<span class="s">χ²(2) = 5.20</span></div></div>
+              <div class="stat"><div class="v">n.s.</div><div class="l">응시시간 조건 차이<span class="s">세 조건 모두</span></div></div>
+            </div>
+            <ul>
+              <li>복합 사회적 단서, 특히 IDS 발화가 표적 물체의 부호화·재인을 촉진했습니다.</li>
+              <li>기질에 따라 단서 활용이 달랐습니다: 긍정적 정서가 높은 영아는 시선/시선+가리키기에서, 지각 민감성이 낮은 영아는 시선+IDS에서 표적을 더 응시했습니다.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="contrib">
+          <b>기여</b> · 제2저자로 참여자 모집 및 데이터 수집을 담당했으며, 학회 발표 초록과 포스터를 작성하고 포스터 발표를 맡았습니다.
+        </div>
+      </div>
+
+      <figure class="poster">
+        <button type="button" data-full="assets/poster_kdps2024.jpg" aria-label="2024 발달심리학회 포스터 크게 보기">
+          <img src="assets/poster_kdps2024.jpg" alt="2024 한국발달심리학회 포스터: 영아의 물체 정보처리에 대한 사회적 단서의 영향" loading="lazy">
+        </button>
+        <figcaption>클릭하면 포스터 전체를 크게 볼 수 있습니다</figcaption>
+        <a class="print-link" href="#full-kdps2024">포스터 원본 크게 보기 →</a>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===================== Research experience ===================== -->
+  <section class="other">
+    <h2>연구 경험</h2>
+    <div class="exp-list">
+      <div class="other-item">
+        <div class="tags"><span class="tag">중앙대학교 심리학과 연구실</span><span class="tag role">개인 연구</span><span class="tag plain">진행 중</span></div>
+        <h3>집단 소속이 유아의 마음이론에 미치는 영향</h3>
+        <p>4·5세 유아를 대상으로, 집단 소속이 마음이론(Theory of Mind) 과제 수행에 미치는 영향을 검증하고 있습니다.</p>
+        <ul>
+          <li>한국어·프랑스어 말소리를 집단 구분 단서로 사용: 원어민 음성을 녹음해 AI로 아동 목소리로 변환하고, 아동 발화와 음성 싱크를 맞춰 실험자극 제작</li>
+          <li>Python으로 실험 과제 구현</li>
+          <li>유아 대상 데이터 수집 진행 중</li>
+        </ul>
+        <div class="chips"><span class="chip">Python</span><span class="chip">마음이론 (ToM)</span></div>
+      </div>
+      <div class="other-item">
+        <div class="tags"><span class="tag">한국뇌연구원</span><span class="tag role">학생연구원</span><span class="tag plain">2026.06 – 2026.09</span></div>
+        <h3>ADHD 하위 유형 분류를 위한 아이트래킹 과제 설계</h3>
+        <p>충동성과 관련된 행동 지표와 안구운동(oculomotor) 지표로 ADHD 하위 유형을 구분하기 위한 아이트래킹 과제를 설계하고, 파일럿 실험을 진행·분석했습니다.</p>
+        <ul>
+          <li>아이트래킹 기반 지연 표본 대응 과제(Delayed Matching-to-Sample) 설계</li>
+          <li>파일럿 실험 진행 (<b>N = 35</b>)</li>
+        </ul>
+        <div class="chips"><span class="chip">Eye-tracking</span><span class="chip">과제 설계</span><span class="chip">파일럿 실험</span></div>
+      </div>
+      <div class="other-item">
+        <div class="tags"><span class="tag">한국뇌연구원</span><span class="tag role">학생연구원</span><span class="tag plain">2026.06 – 2026.09</span></div>
+        <h3>포터블 EEG를 활용한 인지과제 중 부하 측정 연구</h3>
+        <p>인지과제를 수행하는 동안 뇌 부하가 나타나는지 확인하는 연구의 설계에 참여하고, 현장에서 직접 데이터를 수집·분석했습니다.</p>
+        <ul>
+          <li>연구 설계 참여 및 포터블 EEG 측정 절차 구성</li>
+          <li>중학교 1학년 <b>20명</b> 대상 현장 데이터 수집 (TBC 다큐멘터리 촬영 현장)</li>
+          <li><b>측정 환경</b>: Emotiv 14채널 EEG 디바이스로 배외측 전전두엽(<b>F3, F4</b>) 영역의 뇌파 수집</li>
+          <li><b>분석</b>: 휴식 상태(Baseline)와 인지과제 수행 구간의 주파수 대역별 파워 스펙트럼 비교</li>
+          <li><b>결과</b>: 인지과제 수행 중 배외측 전전두엽(F3, F4)에서 <b>베타파(Beta) 활성도가 뚜렷하게 상승</b>함을 확인</li>
+        </ul>
+        <div class="chips"><span class="chip">Portable EEG (Emotiv 14ch)</span><span class="chip">파워 스펙트럼 분석</span><span class="chip">현장 연구</span></div>
+      </div>
+      <div class="other-item">
+        <div class="tags"><span class="tag">한국뇌연구원</span><span class="tag role">학생연구원</span><span class="tag plain">2026.06 – 2026.09</span></div>
+        <h3>발달 연구를 위한 뇌영상(fMRI) 데이터 수집 및 전처리</h3>
+        <ul>
+          <li>fMRI 데이터 수집 세션 운영</li>
+          <li>fMRI 데이터 전처리 파이프라인 실행</li>
+        </ul>
+        <div class="chips"><span class="chip">fMRI</span><span class="chip">전처리</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Other ===================== -->
+  <section class="other">
+    <h2>기타 학술 발표</h2>
+    <div class="other-item">
+      <div class="tags"><span class="tag">2025 한국발달심리학회 포스터</span><span class="tag role">제1저자</span><span class="tag award">우수포스터상</span></div>
+      <h3>가상 캐릭터의 시선 반응성이 13개월 영아의 단어학습에 미치는 영향</h3>
+      <p>이예은, 최영은 · 13개월 영아 대상 Contingent vs. Yoked 비교. 카드 선택 과제에서 반응적 조건의 표적 선택이 더 높았음 (<b>χ²(1) = 5.55, p = .018</b>). ISSBD 발표 연구의 국내 중간 결과.</p>
+    </div>
+  </section>
+
+  <!-- ===================== Appendix (print/PDF only) ===================== -->
+  <section class="appendix" aria-hidden="true">
+    <div class="full-poster" id="full-issbd">
+      <h2>부록 · ISSBD 국제학회 포스터</h2>
+      <img src="assets/poster_issbd.jpg" alt="ISSBD 포스터 원본">
+    </div>
+    <div class="full-poster" id="full-kdps2024">
+      <h2>부록 · 2024 한국발달심리학회 포스터</h2>
+      <img src="assets/poster_kdps2024.jpg" alt="2024 한국발달심리학회 포스터 원본">
+    </div>
+  </section>
+</main>
+
+<footer>© 이예은 · Chung-Ang University Child Development Lab</footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="포스터 확대 보기">
+  <button class="close" type="button" aria-label="닫기">×</button>
+  <img alt="">
+</div>
+
+<script>
+  (function () {
+    var lb = document.getElementById('lb');
+    var img = lb.querySelector('img');
+    document.querySelectorAll('.poster button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        img.src = b.getAttribute('data-full');
+        img.alt = b.querySelector('img').alt;
+        lb.classList.add('open');
+        lb.scrollTop = 0;
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+    lb.addEventListener('click', function (e) { if (e.target !== img) close(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  })();
+</script>
+</body>
+</html>
